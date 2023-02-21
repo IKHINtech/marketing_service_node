@@ -1,7 +1,10 @@
-const app = require('./app')
+const app = require('./app');
+const config = require('./config/config');
 
+const http = require('http')
 
-const port = 3000
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+const server = http.createServer(app);
+
+server.listen(config.port, () => {
+    console.log(`Example app listening on port ${config.port}`)
 })
