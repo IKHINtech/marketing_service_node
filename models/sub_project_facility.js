@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     SubProjectFacility.init({
         id: { type: DataTypes.UUID, primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-        name: DataTypes.STRING,
+        name: DataTypes.STRING(50),
     }, {
         sequelize: sequelize,
         modelName: 'sub_project_facility',

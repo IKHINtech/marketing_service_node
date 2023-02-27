@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: true
         },
         key: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             allowNull: false
         },
         value: {

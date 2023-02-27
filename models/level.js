@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Level.init({
     id: { type: DataTypes.UUID, primaryKey: true, defaultValue: DataTypes.UUIDV4 },
-    name: DataTypes.STRING,
-    code: DataTypes.STRING
+    name: DataTypes.STRING(100),
+    code: DataTypes.STRING(50)
   }, {
     sequelize: sequelize,
     modelName: 'level',

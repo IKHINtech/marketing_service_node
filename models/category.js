@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4
     },
-    name: DataTypes.STRING
+    name: DataTypes.STRING(100)
   }, {
     sequelize: sequelize,
     modelName: 'category',

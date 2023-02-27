@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true
         },
         code: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(50),
             unique: true,
             allowNull: false
         },
         name: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(100),
             unique: true,
             allowNull: false
         },

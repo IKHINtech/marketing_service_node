@@ -7,6 +7,7 @@ module.exports = {
         database: config.dbName,
         host: config.dbHost,
         dialect: 'mysql',
+        logging: false,
         dialectOptions: {
             bigNumberStrings: true,
         },
