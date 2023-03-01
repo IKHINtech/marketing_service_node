@@ -35,8 +35,8 @@ const getPaginationData = (rows, page, limit) => {
     const totalPages = Math.ceil(totalItems / limit);
 
     return {
-        totalItems,
         data,
+        totalItems,
         totalPages,
         currentPage,
     };

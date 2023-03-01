@@ -43,6 +43,44 @@ class ProjectService {
 
         }
     }
+    getAllPaginated = async (query, page = 1, size = 10) => {
+        let limit = size;
+        let offset = size * (page - 1)
+        try {
+            let message = 'success get all data';
+            let projects = await this.projectDao.getDataTableData(query, limit, offset);
+            let data = responseHandler.getPaginationData(projects, page, size);
+            return responseHandler.returnSuccess(httpStatus.OK, message, data);
+        } catch (error) {
+            logger.error(error);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something Wrong');
+        }
+    }
+    findById = async (id) => {
+        try {
+            let message = `success get data by id ${id}`;
+            let data = await this.projectDao.findById(id);
+            return responseHandler.returnSuccess(httpStatus.OK, message, data);
+
+        } catch (error) {
+            logger.error(error);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something Wrong');
+
+        }
+    }
+
+    delete = async (id) => {
+        try {
+            let message = 'success delete data';
+            await this.projectDao.deleteByWhere({ id: id });
+            return responseHandler.returnSuccess(httpStatus.OK, message, null)
+
+        } catch (error) {
+            logger.error(error);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something Wrong');
+
+        }
+    }
 }
 
 module.exports = ProjectService;

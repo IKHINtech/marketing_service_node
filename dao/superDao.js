@@ -27,7 +27,7 @@ class SuperDao {
             });
     }
 
-    async findOneByWhere(where, attributes = null, order = ['id', 'desc']) {
+    async findOneByWhere(where, attributes = null, order = ['created_at', 'desc']) {
         if (attributes == null) {
             return this.Model.findOne({
                 where,
@@ -183,7 +183,7 @@ class SuperDao {
         });
     }
 
-    async getDataTableData(where, limit, offset, order = [['id', 'DESC']]) {
+    async getDataTableData(where, limit, offset, order = [['created_at', 'DESC']]) {
         return this.Model.findAndCountAll({
             limit: parseInt(limit, 10),
             offset: parseInt(offset, 10),
