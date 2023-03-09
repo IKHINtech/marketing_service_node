@@ -1,29 +1,35 @@
-const ProjectService = require("../service/ProjectService");
-const logger = require('../config/logger');
-const httpStatus = require('http-status');
-const { Op } = require("sequelize");
+const httpStatus = require("http-status");
+const logger = require("../config/logger");
+const SubProjectService = require("../service/SubProjectService");
 
-class ProjectController {
+class SubProjectController {
     constructor() {
-        this.projectService = new ProjectService();
+        this.subProjectService = new SubProjectService();
 
     }
     create = async (req, res) => {
         try {
-            const project = await this.projectService.createProject(req.body);
-            const { status } = project.response;
+            const subProject = await this.subProjectService.create(req.body);
+            const { status } = subProject.response;
+            const { message, data } = subProject.response;
+            res.status(subProject.statusCode).send({ status, data, message });
 
-            const { message, data } = project.response;
-            res.status(project.statusCode).send({ status, message, data });
         } catch (e) {
-            logger.error(e);
-            res.status(httpStatus.BAD_GATEWAY).send(e);
+            logger.log(e);
+            res.status(httpStatus.BAD_REQUEST).send(e);
+
         }
     }
 
-    getbyId = async (req, res) => {
-        let data = await this.projectService.findById(req.params.id);
-        res.status(data.statusCode).send(data.response)
+    getById = async (req, res) => {
+        try {
+            let data = await this.subProjectService.findById(req.params.id);
+            res.status(data.statusCode).send(data.response);
+
+        } catch (e) {
+            logger.log(e);
+            res.status(httpStatus.BAD_REQUEST).send(e);
+        }
     }
 
     getAllPaginated = async (req, res) => {
@@ -55,7 +61,7 @@ class ProjectController {
         } else {
             query == {};
         }
-        let data = await this.projectService.getAllPaginated(query, page, size);
+        let data = await this.subProjectService.getPaginated(query, page, size);
         res.status(data.statusCode).send(data.response);
     }
 
@@ -81,7 +87,7 @@ class ProjectController {
             } else {
                 query == {};
             }
-            let data = await this.projectService.getAll(query);
+            let data = await this.subProjectService.getAll(query);
             res.status(data.statusCode).send(data.response);
 
         } catch (e) {
@@ -94,7 +100,7 @@ class ProjectController {
 
     update = async (req, res) => {
         try {
-            const project = await this.projectService.update(req.params.id, req.body);
+            const project = await this.subProjectService.update(req.params.id, req.body);
             res.status(project.statusCode).send(project.response);
 
         } catch (error) {
@@ -105,9 +111,10 @@ class ProjectController {
     }
 
     delete = async (req, res) => {
-        let data = await this.projectService.delete(req.params.id);
+        let data = await this.subProjectService.delete(req.params.id);
         res.status(data.statusCode).send(data.response);
     }
+
 }
 
-module.exports = ProjectController;
+module.exports = SubProjectController;

@@ -28,7 +28,7 @@ app.get('/', async (req, res) => {
     res.status(200).send({ message: 'Congratulations! API is working!' });
 });
 
-app.use('/api', routes);
+app.use('/s1mkt', routes);
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
     next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));

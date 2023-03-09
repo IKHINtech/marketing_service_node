@@ -2,6 +2,7 @@ const express = require('express')
 const projectRoute = require('../route/projectRouter');
 const authRoute = require('../route/authRoute')
 const router = express.Router();
+const subPRojectRoute = require('../route/subProjectRouter');
 
 const defaultRoutes = [
     {
@@ -11,7 +12,11 @@ const defaultRoutes = [
     {
         path: '/project',
         route: projectRoute
-    }
+    },
+    {
+        path: '/sub_project',
+        route: subPRojectRoute,
+    },
 ];
 
 defaultRoutes.forEach((route) => {

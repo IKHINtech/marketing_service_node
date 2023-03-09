@@ -30,12 +30,12 @@ const returnSuccess = (statusCode, message, data = {}) => {
 };
 
 const getPaginationData = (rows, page, limit) => {
-    const { count: totalItems, rows: data } = rows;
+    const { count: totalItems, rows: items } = rows;
     const currentPage = page ? +page : 0;
     const totalPages = Math.ceil(totalItems / limit);
 
     return {
-        data,
+        items,
         totalItems,
         totalPages,
         currentPage,

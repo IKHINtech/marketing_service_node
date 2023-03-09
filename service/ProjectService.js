@@ -43,6 +43,14 @@ class ProjectService {
 
         }
     }
+
+    /**
+     * Get all Project with paginate
+     * @param {Object} query
+     * @param {int} page
+     * @param {Object} size
+     * @returns {List Object}
+     */
     getAllPaginated = async (query, page = 1, size = 10) => {
         let limit = size;
         let offset = size * (page - 1)
@@ -55,6 +63,18 @@ class ProjectService {
             logger.error(error);
             return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something Wrong');
         }
+    }
+
+    getAll = async (query) => {
+        try {
+            let message = 'success get all data';
+            let projects = await this.projectDao.findByWhere(query, ['name', 'asc']);
+            return responseHandler.returnSuccess(httpStatus.OK, message, projects);
+        } catch (e) {
+            logger.error(e);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, e)
+        }
+
     }
     findById = async (id) => {
         try {
@@ -78,6 +98,18 @@ class ProjectService {
         } catch (error) {
             logger.error(error);
             return responseHandler.returnError(httpStatus.BAD_REQUEST, 'Something Wrong');
+
+        }
+    }
+
+    update = async (id, data) => {
+        try {
+            let message = 'success update data';
+            await this.projectDao.updateById(data, id);
+            return responseHandler.returnSuccess(httpStatus.OK, message);
+        } catch (e) {
+            logger.error(e);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, e)
 
         }
     }

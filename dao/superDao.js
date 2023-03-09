@@ -6,7 +6,7 @@ class SuperDao {
     }
 
     async findAll() {
-        return this.Model.findAll()
+        return this.Model.findAll({})
             .then((result) => {
                 return result;
             })
@@ -96,8 +96,8 @@ class SuperDao {
 
     async findByWhere(
         where,
+        order,
         attributes = undefined,
-        order = ['id', 'asc'],
         limit = null,
         offset = null,
     ) {
