@@ -1,7 +1,7 @@
 const httpStatus = require("http-status");
 const logger = require("../config/logger");
 const LevelDao = require("../dao/levelDao");
-const responseHandler = require('../helper/responseHandler')
+const responseHandler = require('../helper/responseHandler');
 const { v4: uuidv4 } = require('uuid');
 
 
