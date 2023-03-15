@@ -62,5 +62,30 @@ class CategoryService {
         }
     }
 
-    // TODO
+    findById = async (id) => {
+        try {
+            const msg = 'success get by id';
+            const data = await this.categoryDao.findById(id);
+            return responseHandler.returnSuccess(httpStatus.OK, msg, data);
+
+        } catch (e) {
+            logger.log(e);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, e);
+        }
+    }
+
+    update = async (id, data) => {
+        try {
+            const msg = 'success update data';
+            await this.categoryDao.updateById(data, id);
+            return responseHandler.returnSuccess(httpStatus.OK, msg);
+
+        } catch (e) {
+            logger.log(e);
+            return responseHandler.returnError(httpStatus.BAD_REQUEST, e);
+
+        }
+    }
 }
+
+module.exports = CategoryService;

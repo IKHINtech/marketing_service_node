@@ -16,6 +16,7 @@ class LevelService {
             data.name = data.name;
             data.id = uuid;
             data.code = data.code;
+            data.sub_project_id = data.sub_project_id;
 
             let level = await this.levelDao.create(data);
             if (!level) {
