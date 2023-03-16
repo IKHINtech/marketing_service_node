@@ -1,12 +1,12 @@
-const PaymentModeDao = require("../dao/paymentModeDao");
+const SubProjectAdditionalInfoDao = require("../dao/subProjectAdditionalInfoDao");
 const httpStatus = require("http-status");
 const { v4: uuidv4 } = require("uuid");
 
 const responseHandler = require('../helper/responseHandler');
 
-class PaymentModeService {
+class SubProjectAdditionalInfoService {
     constructor() {
-        this.dao = new PaymentModeDao();
+        this.dao = new SubProjectAdditionalInfoDao();
     }
 
     create = async (data) => {
@@ -15,12 +15,10 @@ class PaymentModeService {
             let msg = 'success create data';
             const uuid = uuidv4();
             data.id = uuid;
-            data.start_at = data.start_at;
-            data.is_active = data.is_active;
             data.key = data.key;
             data.value = data.value;
-            data.prioritas = data.prioritas;
-            data.type_id = data.type_id;
+            data.sub_project_id = data.sub_project_id;
+
 
             let result = await this.dao.create(data);
             if (!result) {
@@ -52,4 +50,4 @@ class PaymentModeService {
     }
 }
 
-module.exports = PaymentModeService;
+module.exports = SubProjectAdditionalInfoService;
