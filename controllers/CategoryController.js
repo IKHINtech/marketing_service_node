@@ -24,12 +24,15 @@ class CategoryController {
 
     getById = async (req, res) => {
         try {
+            const data = await this.service.findById(req.params.id);
+            res.status(data.statusCode).send(data.response);
 
         } catch (e) {
+            logger.error(e);
+            res.status(httpStatus.BAD_GATEWAY).send(e);
 
         }
-        const data = await this.service.findById(req.params.id);
-        res.status(data.statusCode).send(data.response);
+
     }
 
     getAllPaginated = async (req, res) => {
