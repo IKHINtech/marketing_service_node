@@ -1,3 +1,30 @@
-const UnitService = require('../service/LevelService');
-const logger = require('../config/logger');
-const httpStatus = require('http-status');
+const UnitService = require("../service/LevelService");
+const logger = require("../config/logger");
+const httpStatus = require("http-status");
+
+class UnitController {
+  constructor() {
+    this.service = new UnitService();
+  }
+
+  create = async (req, res) => {
+    try {
+      const data = await this.service.create(req.body);
+      const { status, msg, result } = data.response;
+      res.status(data.statusCode).senf({ status, msg, result });
+    } catch (e) {
+      logger.error(e);
+      res.status(httpStatus.BAD_GATEWAY).send(e);
+    }
+  };
+
+  getById = async (req, res) => {
+    try {
+      const data = await this.service.findById(req.params.id);
+      res.status(data.statusCode).send(data.response);
+    } catch (e) {
+      logger.error(e);
+      res.status(httpStatus.BAD_GATEWAY).send(e);
+    }
+  };
+}

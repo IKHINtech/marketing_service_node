@@ -5,9 +5,9 @@ const models = require("../models");
 const Category = models.category;
 
 class CategoryDao extends SuperDao {
-    constructor() {
-        super(Category);
-    }
+  constructor() {
+    super(Category);
+  }
 }
 
 module.exports = CategoryDao;
