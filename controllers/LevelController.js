@@ -59,7 +59,8 @@ class LevelController {
 
   update = async (req, res) => {
     try {
-      const data = await this.service.update;
+      const data = await this.service.update(req.params.id, req.body);
+      res.status(httpStatus.OK);
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);
