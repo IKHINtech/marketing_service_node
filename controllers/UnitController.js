@@ -39,7 +39,7 @@ class UnitController {
       }
       let query = {};
       const data = await this.service.getPaginated(query, page, size);
-      res.staus(data.statusCode).send(data.response);
+      res.status(data.statusCode).send(data.response);
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);
