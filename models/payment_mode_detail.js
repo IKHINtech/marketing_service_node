@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
       },
-      priorityas: {
+      prioritas: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

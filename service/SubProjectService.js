@@ -76,8 +76,12 @@ class SubProjectService {
   };
   findById = async (id) => {
     try {
-      const message = "success get data";
+      let message = "success get data";
       const subProject = await this.subProjectDao.findById(id);
+      if (subProject == null) {
+        message = "Not Found";
+        return responseHandler.returnSuccess(404, message, subProject);
+      }
       return responseHandler.returnSuccess(httpStatus.OK, message, subProject);
     } catch (e) {
       logger.log(e);

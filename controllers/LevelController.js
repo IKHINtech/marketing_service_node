@@ -9,10 +9,10 @@ class LevelController {
 
   create = async (req, res) => {
     try {
-      const data = await this.service.create(req.body);
-      const { status } = data.response;
-      const { msg, result } = data.response;
-      res.status(data.statusCode).send({ status, msg, result });
+      const result = await this.service.create(req.body);
+      const { status } = result.response;
+      const { message, data } = result.response;
+      res.status(result.statusCode).send({ status, message, data });
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);

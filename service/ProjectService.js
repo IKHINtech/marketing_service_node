@@ -93,6 +93,10 @@ class ProjectService {
     try {
       let message = `success get data by id ${id}`;
       let data = await this.projectDao.findById(id);
+      if (data == null) {
+        message = "Not Found";
+        return responseHandler.returnSuccess(404, message, data);
+      }
       return responseHandler.returnSuccess(httpStatus.OK, message, data);
     } catch (error) {
       logger.error(error);
