@@ -27,4 +27,16 @@ class SubCategoryController {
       res.status(httpStatus.BAD_GATEWAY).send(e);
     }
   };
+
+  getAllPaginated = async (req, res) => {
+    try {
+      let page = parseInt(req.query["page"], 10) ?? 1;
+      let size = parseInt(req.query["size"], 10) ?? 10;
+    }
+    catch (e) {
+
+    }
+  }
 }
+
+module.exports = SubCategoryController;

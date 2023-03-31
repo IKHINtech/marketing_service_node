@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "sub_project_id",
         targetKey: "id",
       });
+      this.hasMany(models.sub_project_additional_info_detail, {
+        foreignKey: "sub_project_additional_info_id",
+        sourceKey: "id"
+      })
     }
   }
   SubProjectAdditionalInfo.init(
@@ -19,11 +23,11 @@ module.exports = (sequelize, DataTypes) => {
 
       key: {
         type: DataTypes.STRING(50),
-        allowNull: false,
-      },
-      value: {
-        type: DataTypes.STRING(100),
         allowNull: true,
+      },
+      prioritas: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {

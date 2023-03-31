@@ -66,8 +66,12 @@ class SubCategotyService {
 
   findById = async (id) => {
     try {
-      const msg = "success get by id";
+      let msg = "success get by id";
       const data = await this.repo.findById(id);
+      if (data == null) {
+        msg = 'Not Found';
+        return responseHandler.returnSuccess(404, msg, data)
+      }
       return responseHandler.returnSuccess(httpStatus.OK, msg, data);
     } catch (e) {
       logger.log(e);

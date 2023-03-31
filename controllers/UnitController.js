@@ -29,14 +29,8 @@ class UnitController {
   };
   getAllPaginated = async (req, res) => {
     try {
-      let page = 1;
-      let size = 10;
-      if ("page" in req.query && req.query["page"] != "") {
-        page = parseInt(req.query["page"], 10);
-      }
-      if ("size" in req.query && req.query["size"] != "") {
-        size = parseInt(req.query["size"], 10);
-      }
+      let page = parseInt(req.query["page"], 10) ?? 1;
+      let size = parseInt(req.query["size"], 10) ?? 10;
       let query = {};
       const data = await this.service.getPaginated(query, page, size);
       res.status(data.statusCode).send(data.response);

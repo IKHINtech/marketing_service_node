@@ -11,10 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         through: "WorkerProjectLink",
         foreignKey: "project_id",
       });
-      this.hasMany(models.sub_project, {
-        foreignKey: "project_id",
-        sourceKey: "id",
-      });
+
     }
   }
   Project.init(
@@ -26,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       name: {
         type: DataTypes.STRING(100),
-        unique: true,
         allowNull: false,
       },
       code: {

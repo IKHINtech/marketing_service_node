@@ -9,11 +9,11 @@ class CategoryController {
 
   create = async (req, res) => {
     try {
-      const data = await this.service.create(req.body);
-      const { status } = data.response;
+      const result = await this.service.create(req.body);
+      const { status } = result.response;
 
-      const { msg, result } = data.response;
-      res.status(data.statusCode).send({ status, msg, result });
+      const { message, data } = result.response;
+      res.status(result.statusCode).send({ status, message, data });
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);
@@ -32,14 +32,8 @@ class CategoryController {
 
   getAllPaginated = async (req, res) => {
     try {
-      let page = 1;
-      let size = 10;
-      if ("page" in req.query && req.query["page"] != "") {
-        page = parseInt(req.query["page"], 10);
-      }
-      if ("size" in req.query && req.query["page"] != "") {
-        size = parseInt(req.query["page"], 10);
-      }
+      let page = parseInt(req.query["page"], 10) ?? 1;
+      let size = parseInt(req.query["size"], 10) ?? 10;
       let query = {};
 
       const data = await this.service.getPaginated(query, page, size);

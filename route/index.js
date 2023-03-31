@@ -5,6 +5,7 @@ const router = express.Router();
 const subPRojectRoute = require("../route/subProjectRouter");
 const levelRoute = require("../route/levelRouter");
 const unitRoute = require("../route/unitRouter");
+const categoryRoute = require("../route/categoryRoute");
 
 const defaultRoutes = [
   {
@@ -27,6 +28,10 @@ const defaultRoutes = [
     path: "/unit",
     route: unitRoute,
   },
+  {
+    path: "/category",
+    route: categoryRoute
+  }
 ];
 
 defaultRoutes.forEach((route) => {
