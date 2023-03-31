@@ -26,8 +26,8 @@ class ProjectController {
   };
 
   getAllPaginated = async (req, res) => {
-    let page = parseInt(req.query["page"], 10) ?? 1;
-    let size = parseInt(req.query["size"], 10) ?? 10;
+    let page = req.query.page == undefined ? 1 : parseInt(req.query.page, 10);
+    let size = req.query.size == undefined ? 10 : parseInt(req.query.size, 10);
 
     let query;
     if ("search" in req.query && req.query["search"] != "") {

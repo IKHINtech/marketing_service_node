@@ -6,6 +6,7 @@ class SubCategoryValidator {
   async subCategoryCreateValidator(req, res, next) {
     const schema = Joi.object({
       name: Joi.string().required(),
+      category_id: Joi.string().guid()
     });
     const { error, value } = schema.validate(req.body);
     if (error) {

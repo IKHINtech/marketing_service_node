@@ -13,6 +13,14 @@ class SubProjectValidator {
       lat: Joi.number().required(),
       lng: Joi.number().required(),
       project_id: Joi.string().guid().required(),
+      additional_info: Joi.array().required().items(Joi.object({
+        key: Joi.string().required(),
+        prioritas: Joi.number().required(),
+        additional_info_detail: Joi.array().required().items(Joi.object({
+          prioritas: Joi.number().required(),
+          value: Joi.string().required()
+        }))
+      }))
     });
 
     const { error, value } = schema.validate(req.body);

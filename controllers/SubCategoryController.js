@@ -9,10 +9,10 @@ class SubCategoryController {
 
   create = async (req, res) => {
     try {
-      const data = await this.service.create(req.body);
-      const { status, msg, result } = data.response;
+      const result = await this.service.create(req.body);
+      const { status, message, data } = result.response;
 
-      res.status(data.statusCode).send({ status, msg, result });
+      res.status(result.statusCode).send({ status, message, data });
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);
@@ -30,10 +30,26 @@ class SubCategoryController {
 
   getAllPaginated = async (req, res) => {
     try {
-      let page = parseInt(req.query["page"], 10) ?? 1;
-      let size = parseInt(req.query["size"], 10) ?? 10;
+      let page = req.query.page == undefined ? 1 : parseInt(req.query.page, 10);
+      let size = req.query.size == undefined ? 10 : parseInt(req.query.size, 10);
+      const data = await this.service.getPaginated({}, page, size);
+      res.status(data.statusCode).send(data.response);
+
     }
     catch (e) {
+      logger.log(e);
+      res.status(httpStatus.BAD_REQUEST).send(e);
+
+    }
+  }
+
+  update = async (req, res) => {
+    try {
+      const data = await this.service.update(req.params.id, req.body);
+      res.status(data.statusCode).send(data.response);
+    } catch (e) {
+      logger.log(e);
+      res.status(httpStatus.BAD_REQUEST).send(e);
 
     }
   }

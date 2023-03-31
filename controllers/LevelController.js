@@ -30,8 +30,8 @@ class LevelController {
 
   getAllPaginated = async (req, res) => {
     try {
-      let page = parseInt(req.query["page"], 10) ?? 1;
-      let size = parseInt(req.query["size"], 10) ?? 10;
+      let page = req.query.page == undefined ? 1 : parseInt(req.query.page, 10);
+      let size = req.query.size == undefined ? 10 : parseInt(req.query.size, 10);
       let query = {};
       const data = await this.service.getPaginated(query, page, size);
       res.status(data.statusCode).send(data.response);

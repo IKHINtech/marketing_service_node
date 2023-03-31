@@ -19,7 +19,7 @@ class SubCategotyService {
 
       let result = await this.repo.create(data);
       if (!result) {
-        msg = "failed to create result";
+        msg = "failed to create data";
         return responseHandler.returnError(httpStatus.BAD_REQUEST, msg);
       }
       result = result.toJSON();

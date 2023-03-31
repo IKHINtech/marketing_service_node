@@ -12,16 +12,15 @@ class SubProjectService {
   create = async (subProjectBody) => {
     try {
       let message = "success create sub project";
-      if (await this.subProjectDao.findByName(subProjectBody.name)) {
+      if (await this.subProjectDao.findByCode(subProjectBody.code)) {
         return responseHandler.returnError(
           httpStatus.BAD_REQUEST,
           "Nama Sub Project Sudah Ada"
         );
       }
       const uuid = uuidv4();
-      subProjectBody.name = subProjectBody.name;
       subProjectBody.id = uuid;
-      subProjectBody.code = subProjectBody.code;
+      // TODO create nested
 
       let subProjectData = await this.subProjectDao.create(subProjectBody);
       if (!subProjectData) {

@@ -6,6 +6,7 @@ const subPRojectRoute = require("../route/subProjectRouter");
 const levelRoute = require("../route/levelRouter");
 const unitRoute = require("../route/unitRouter");
 const categoryRoute = require("../route/categoryRoute");
+const subCategory = require("../route/subCateoryRoute")
 
 const defaultRoutes = [
   {
@@ -31,6 +32,10 @@ const defaultRoutes = [
   {
     path: "/category",
     route: categoryRoute
+  },
+  {
+    path: "/sub_category",
+    route: subCategory
   }
 ];
 

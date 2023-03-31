@@ -6,12 +6,12 @@ class SubProjectDao extends SuperDao {
   constructor() {
     super(SubProject);
   }
-  async findByName(name) {
-    return SubProject.findOne({ where: { name } });
+  async findByCode(code) {
+    return SubProject.findOne({ where: { code } });
   }
-  async isNameExists(name) {
+  async isNameExists(code) {
     return SubProject.count({
-      where: { name },
+      where: { code },
     }).then((count) => {
       if (count != 0) {
         return true;
