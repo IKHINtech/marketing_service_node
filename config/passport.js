@@ -6,7 +6,7 @@ const TokenDao = require("../dao/tokenDao");
 // const RedisService = require('../service/RedisService');
 const models = require("../models");
 
-const Worker = models.worker;
+// const Worker = models.worker;
 const jwtOptions = {
   secretOrKey: config.jwt.secret,
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -31,7 +31,7 @@ const jwtVerify = async (req, payload, done) => {
 
     // let tokenDoc = redisService.hasToken(authorization[1], 'access_token');
     // if (!tokenDoc) {
-    console.log("Cache Missed!");
+    // console.log("Cache Missed!");
     let tokenDoc = await tokenDao.findOne({
       token: authorization[1],
       type: tokenTypes.ACCESS,
@@ -47,11 +47,11 @@ const jwtVerify = async (req, payload, done) => {
     let user = await userDao.findOneByWhere({ id: payload.sub });
     // }
 
-    if (!user) {
-      console.log("User Cache Missed!");
+    // if (!user) {
+    // console.log("User Cache Missed!");
 
-      // redisService.setUser(user);
-    }
+    // redisService.setUser(user);
+    // }
 
     if (!user) {
       return done(null, false);

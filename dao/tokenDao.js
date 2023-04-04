@@ -1,4 +1,4 @@
-const SuperDao = require("./SuperDao");
+const SuperDao = require("./superDao");
 const models = require("../models");
 
 const Token = models.token;

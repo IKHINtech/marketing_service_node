@@ -1,6 +1,8 @@
 const SuperDao = require("./superDao");
 const models = require("../models");
 const SubProject = models.sub_project;
+const logger = require("../config/logger");
+
 
 class SubProjectDao extends SuperDao {
   constructor() {
@@ -19,6 +21,18 @@ class SubProjectDao extends SuperDao {
         return false;
       }
     });
+  }
+  async create(data) {
+    try {
+      await SubProject.create(
+        data,
+        { includes: [] })
+
+    } catch (e) {
+      logger.error(e);
+
+    }
+
   }
 }
 

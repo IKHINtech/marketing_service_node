@@ -101,6 +101,29 @@ class AuthController {
       res.status(httpStatus.BAD_GATEWAY).send(e);
     }
   };
+
+  profile = async (req, res) => {
+    try {
+
+      const authorization =
+        req.headers.authorization !== undefined
+          ? req.headers.authorization.split(" ")
+          : [];
+      let token = await this.tokenService.tokenDao.findOne({
+        token: authorization[1],
+        type: tokenTypes.ACCESS,
+        blacklisted: false
+      });
+
+      const responseData = await this.userService.getUserByUuid(token.user_id)
+      res.status(httpStatus.OK).json(responseData)
+
+    } catch (e) {
+      logger.error(e);
+      res.status(httpStatus.BAD_REQUEST).send(e);
+
+    }
+  }
 }
 
 module.exports = AuthController;

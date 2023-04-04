@@ -27,5 +27,6 @@ router.put(
   userValidator.changePasswordValidator,
   authController.changePassword
 );
+router.get("/profile", auth(), authController.profile)
 
 module.exports = router;

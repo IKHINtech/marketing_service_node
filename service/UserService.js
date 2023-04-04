@@ -74,14 +74,14 @@ class UserService {
     return responseHandler.returnSuccess(httpStatus.OK, message);
   };
 
-  getUserByUuid = async (uuid) => {
-    return this.userDao.findOneByWhere({ uuid });
+  getUserByUuid = async (id) => {
+    return this.userDao.findOneByWhere({ id });
   };
 
-  changePassword = async (data, uuid) => {
+  changePassword = async (data, id) => {
     let message = "Login Successful";
     let statusCode = httpStatus.OK;
-    let user = await this.userDao.findOneByWhere({ uuid });
+    let user = await this.userDao.findOneByWhere({ id });
 
     if (!user) {
       return responseHandler.returnError(
