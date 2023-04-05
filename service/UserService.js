@@ -5,10 +5,13 @@ const UserDao = require("../dao/userDao");
 const responseHandler = require("../helper/responseHandler");
 const logger = require("../config/logger");
 const { userConstant } = require("../config/constant");
+const TokenService = require("../service/TokenService");
+
 
 class UserService {
   constructor() {
     this.userDao = new UserDao();
+    this.tokenService = new TokenService();
   }
 
   /**
@@ -40,13 +43,22 @@ class UserService {
         return responseHandler.returnError(httpStatus.BAD_REQUEST, message);
       }
 
+      let user = userData.toJSON();
+      delete user.password;
+      let tokens = {};
+
+      if (userData) {
+        tokens = await this.tokenService.generateAuthTokens(user);
+      }
+
       userData = userData.toJSON();
       delete userData.password;
 
       return responseHandler.returnSuccess(
         httpStatus.CREATED,
         message,
-        userData
+        user,
+        tokens
       );
     } catch (e) {
       logger.error(e);
