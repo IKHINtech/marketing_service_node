@@ -44,19 +44,20 @@ class AuthController {
   login = async (req, res) => {
     try {
       const { email, password } = req.body;
-      const user = await this.authService.loginWithEmailPassword(
+      const userData = await this.authService.loginWithEmailPassword(
         email.toLowerCase(),
         password
       );
-      const { message } = user.response;
-      const { data } = user.response;
-      const { status } = user.response;
-      const code = user.statusCode;
+      const { message } = userData.response;
+      const { data } = userData.response;
+      const { status } = userData.response;
+      const code = userData.statusCode;
       let tokens = {};
-      if (user.response.status) {
+      if (userData.response.status) {
         tokens = await this.tokenService.generateAuthTokens(data);
       }
-      res.status(user.statusCode).send({ status, code, message, data, tokens });
+      const user = data
+      res.status(userData.statusCode).send({ status, code, message, user, tokens });
     } catch (e) {
       logger.error(e);
       res.status(httpStatus.BAD_GATEWAY).send(e);
