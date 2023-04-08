@@ -20,7 +20,19 @@ class SubProjectService {
       }
       const uuid = uuidv4();
       subProjectBody.id = uuid;
-      // TODO create nested
+
+      for (let i of subProjectBody.sub_project_additional_infos) {
+        i.id = uuidv4()
+        i.sub_project_id = subProjectBody.id
+        for (let y of i.sub_project_additional_info_details) {
+          y.id = uuidv4()
+          y.sub_project_additional_info_id = y.id
+        }
+      }
+      for (let f of subProjectBody.sub_project_facilities) {
+        f.id = uuidv4()
+        f.sub_project_id = subProjectBody.id
+      }
 
       let subProjectData = await this.subProjectDao.create(subProjectBody);
       if (!subProjectData) {

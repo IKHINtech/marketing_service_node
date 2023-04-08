@@ -20,7 +20,7 @@ router.delete("/:id", auth(), subProjectController.delete);
 router.put(
   "/:id",
   auth(),
-  subProjectValidator.subProjectCreateValidator,
+  subProjectValidator.subProjectUpdateValidator,
   subProjectController.update
 );
 

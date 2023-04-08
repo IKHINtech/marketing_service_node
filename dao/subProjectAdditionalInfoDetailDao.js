@@ -1,20 +1,19 @@
 const SuperDao = require("./superDao");
 const logger = require("../config/logger");
-const models = require("../models");
 const { Op } = require("sequelize");
-const SubProjectAdditionalInfo = models.sub_project_additional_info;
+const models = require("../models");
+const SubProjectAdditionalInfoDetail = models.sub_project_additional_info_detail;
 
-class SubProjectAdditionalInfoDao extends SuperDao {
+class SubProjectAdditionalInfoDetailDao extends SuperDao {
   constructor() {
-    super(SubProjectAdditionalInfo);
+    super(SubProjectAdditionalInfoDetail);
   }
-
   async exclude(subProjecId, data) {
     try {
-      const result = await SubProjectAdditionalInfo.findAll(
+      const result = await SubProjectAdditionalInfoDetail.findAll(
         {
           where: {
-            sub_project_id: subProjecId,
+            sub_project_additional_info_id: subProjecId,
             id: {
               [Op.notIn]: data
             }
@@ -29,19 +28,18 @@ class SubProjectAdditionalInfoDao extends SuperDao {
   }
   async findBy(subProjectId) {
     try {
-      const result = await SubProjectAdditionalInfo.findAll(
+      const result = await SubProjectAdditionalInfoDetail.findAll(
         {
           where: {
-            sub_project_id: subProjectId,
+            sub_project_additional_info_id: subProjectId,
           }
         }
       )
       return result;
-
     } catch (error) {
       logger.log(error)
     }
   }
 }
 
-module.exports = SubProjectAdditionalInfoDao;
+module.exports = SubProjectAdditionalInfoDetailDao;
