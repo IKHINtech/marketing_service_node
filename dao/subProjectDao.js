@@ -86,7 +86,7 @@ class SubProjectDao extends SuperDao {
           let detail_info = []
           await this.infoService.updateOrCreate(i, { id: i.id })
 
-          if (y.sub_project_additional_info_details.length != 0) {
+          if (i.sub_project_additional_info_details.length != 0) {
             for (let y of i.sub_project_additional_info_details) {
               detail_info.push(y.id)
               await this.detailService.updateOrCreate(y, { id: y.id })
