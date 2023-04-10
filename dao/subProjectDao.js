@@ -9,6 +9,7 @@ const SubProjectFacility = models.sub_project_facility
 const SubProjectFacilityDao = require('../dao/subProjectFacilityDao')
 const SubProjectAdditionalInfoDao = require('../dao/subProjectAdditionalInfoDao')
 const SubProjectAdditionalInfoDetailDao = require("../dao/subProjectAdditionalInfoDetailDao")
+const { v4: uuidv4 } = require("uuid");
 
 
 
@@ -82,12 +83,16 @@ class SubProjectDao extends SuperDao {
       let sub_project_facility = []
       if (data.sub_project_additional_infos.length != 0) {
         for (let i of data.sub_project_additional_infos) {
+          i.id === undefined ? i.id = uuidv4() : i.id
+          i.sub_project_id === undefined ? i.sub_project_id = data.id : i.sub_project_id
           sub_project_info.push(i.id)
           let detail_info = []
           await this.infoService.updateOrCreate(i, { id: i.id })
 
           if (i.sub_project_additional_info_details.length != 0) {
             for (let y of i.sub_project_additional_info_details) {
+              y.id === undefined ? y.id = uuidv4() : y.id
+              y.sub_project_additional_info_id === undefined ? y.sub_project_additional_info_id = i.id : y.sub_project_additional_info_id
               detail_info.push(y.id)
               await this.detailService.updateOrCreate(y, { id: y.id })
             }
@@ -126,6 +131,8 @@ class SubProjectDao extends SuperDao {
 
       if (data.sub_project_facilities.length != 0) {
         for (let f of data.sub_project_facilities) {
+          f.id === undefined ? f.id = uuidv4() : f.id
+          f.sub_project_id === undefined ? f.sub_project_id = data.id : f.sub_project_id
           sub_project_facility.push(f.id)
           await this.facilityService.updateOrCreate(f, { id: f.id })
         }
