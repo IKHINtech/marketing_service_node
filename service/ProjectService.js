@@ -19,10 +19,10 @@ class ProjectService {
   createProject = async (projectBody) => {
     try {
       let message = "success create project";
-      if (await this.projectDao.isNameExists(projectBody.name)) {
+      if (await this.projectDao.isCodeExists(projectBody.code)) {
         return responseHandler.returnError(
           httpStatus.BAD_REQUEST,
-          "Nama sudah ada"
+          "Code Project sudah ada"
         );
       }
       const uuid = uuidv4();

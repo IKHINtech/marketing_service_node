@@ -163,10 +163,17 @@ class SubProjectDao extends SuperDao {
       include: [
         {
           model: SubProjectAdditionalInfo,
-          include: [SubProjectAdditionalInfoDetail]
+          include: [
+            {
+              model: SubProjectAdditionalInfoDetail
+            }]
 
         },
         SubProjectFacility
+      ],
+      order: [
+        [SubProjectAdditionalInfo, 'prioritas', 'ASC'],
+        [SubProjectAdditionalInfo, SubProjectAdditionalInfoDetail, 'prioritas', 'ASC']
       ]
     })
       .then((result) => {
